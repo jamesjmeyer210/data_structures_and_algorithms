@@ -19,9 +19,27 @@ public class LinkedListTest {
     }
 
     @Test
-    public void AddDoesNotAcceptNull(){
+    public void AddTest(){
         Assertions.assertFalse(list.add(null));
         Assertions.assertTrue(list.add("Something"));
         Assertions.assertEquals(1, list.size());
+    }
+
+    @Test
+    public void RemoveTest(){
+        list.add("hello");
+        Assertions.assertTrue(list.remove("hello"));
+        Assertions.assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void RemoveManyTest(){
+        list.add("2");
+        list.add("3");
+        list.add("5");
+        list.add("7");
+        list.add("11");
+        Assertions.assertTrue(list.remove("5"));
+        Assertions.assertEquals(4, list.size());
     }
 }

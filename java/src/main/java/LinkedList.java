@@ -5,31 +5,18 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
+class Node<T> {
+    public Node<T> previous;
+    public T data;
+}
+
 public class LinkedList<T> implements List<T> {
 
-    class Node<T> {
-        public Node<T> next;
-        public Node<T> previous;
-        public T data;
-
-        public Node(){}
-
-        public Node(T data) {
-            this.data = data;
-        }
-
-        public Node(T data, Node<T> previous){
-            this(data);
-            this.previous = previous;
-        }
-    }
-
-    private Node<T> first;
     private Node<T> last;
     private int size;
 
     public LinkedList(){
-        first = last = new Node<>();
+        last = null;
     }
 
     @Override
@@ -77,8 +64,11 @@ public class LinkedList<T> implements List<T> {
         if(null == t)
             return false;
 
-        last.next = new Node<>(t, last);
-        last = last.next;
+        Node<T> node = new Node<>();
+        node.data = t;
+        node.previous = last;
+        last = node;
+
         size++;
         return true;
     }
@@ -87,12 +77,19 @@ public class LinkedList<T> implements List<T> {
     public boolean remove(Object o) {
         if(null == o)
             return false;
+        if(isEmpty())
+            return false;
 
-        for(Node<T> i = first; i != null; i = i.next){
-            if(i.data.equals(o)){
-                i.previous.next = i.next.next;
+        Node<T> iter = last;
+        Node<T> prevIter = null;
+        while(iter != null){
+            if(iter.data.equals(o)){
+                iter.previous = prevIter;
+                size--;
                 return true;
             }
+            prevIter = iter;
+            iter = iter.previous;
         }
 
         return false;
