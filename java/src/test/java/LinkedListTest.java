@@ -39,7 +39,35 @@ public class LinkedListTest {
         list.add("5");
         list.add("7");
         list.add("11");
+
         Assertions.assertTrue(list.remove("5"));
         Assertions.assertEquals(4, list.size());
+    }
+
+    @Test
+    public void GetTest(){
+        list.add("2");
+        list.add("3");
+        list.add("5");
+        list.add("7");
+        list.add("11");
+
+        Assertions.assertEquals("7", list.get(3));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(-5));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.get(list.size() + 1));
+    }
+
+    @Test
+    public void SetTest(){
+        list.add("2");
+        list.add("3");
+        list.add("5");
+        list.add("7");
+        list.add("11");
+
+        Assertions.assertEquals("7", list.set(3, "6"));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.set(-5, null));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.set(list.size() + 1, null));
+        Assertions.assertThrows(NullPointerException.class, () -> list.set(0, null));
     }
 }

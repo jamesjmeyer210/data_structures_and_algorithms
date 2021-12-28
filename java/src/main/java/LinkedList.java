@@ -137,17 +137,36 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void clear() {
-
+        last = null;
+        size = 0;
     }
 
     @Override
-    public T get(int i) {
-        return null;
+    public T get(int index) {
+        if(index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+
+        Node<T> iter = last;
+        for(int i = size - 1; i > index; i--)
+            iter = iter.previous;
+
+        return iter.data;
     }
 
     @Override
-    public T set(int i, T t) {
-        return null;
+    public T set(int index, T data) {
+        if(index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
+        if(data == null)
+            throw new NullPointerException();
+
+        Node<T> iter = last;
+        for(int i = size - 1; i > index; i--)
+            iter = iter.previous;
+
+        T oldData = iter.data;
+        iter.data = data;
+        return oldData;
     }
 
     @Override
