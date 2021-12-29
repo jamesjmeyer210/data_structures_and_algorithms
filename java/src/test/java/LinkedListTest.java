@@ -70,4 +70,21 @@ public class LinkedListTest {
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.set(list.size() + 1, null));
         Assertions.assertThrows(NullPointerException.class, () -> list.set(0, null));
     }
+
+    @Test
+    public void AddAtIndexOnEmptyListTest(){
+        list.add(0, "1");
+
+        Assertions.assertEquals(1, list.size());
+    }
+
+    @Test
+    public void AddAtAnyValidIndexTest(){
+        list.add(0, "1");
+        list.add(0, "2");
+
+        Assertions.assertEquals(2, list.size());
+        Assertions.assertEquals("1", list.get(1));
+        Assertions.assertEquals("2", list.get(0));
+    }
 }

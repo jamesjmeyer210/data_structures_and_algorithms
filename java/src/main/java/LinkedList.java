@@ -19,6 +19,13 @@ public class LinkedList<T> implements List<T> {
         last = null;
     }
 
+    private Node<T> getNode(int index){
+        Node<T> iter = last;
+        for(int i = size - 1; i > index; i--)
+            iter = iter.previous;
+        return iter;
+    }
+
     @Override
     public int size() {
         return size;
@@ -146,11 +153,7 @@ public class LinkedList<T> implements List<T> {
         if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
 
-        Node<T> iter = last;
-        for(int i = size - 1; i > index; i--)
-            iter = iter.previous;
-
-        return iter.data;
+        return getNode(index).data;
     }
 
     @Override
@@ -160,18 +163,32 @@ public class LinkedList<T> implements List<T> {
         if(data == null)
             throw new NullPointerException();
 
-        Node<T> iter = last;
-        for(int i = size - 1; i > index; i--)
-            iter = iter.previous;
+        Node<T> node = getNode(index);
 
-        T oldData = iter.data;
-        iter.data = data;
+        T oldData = node.data;
+        node.data = data;
         return oldData;
     }
 
     @Override
-    public void add(int i, T t) {
+    public void add(int index, T data) {
+        if(index < 0 || index > size)
+            throw new IndexOutOfBoundsException();
+        if(data == null)
+            throw new NullPointerException();
 
+        Node<T> node = new Node<>();
+        node.data = data;
+        if(isEmpty()){
+            last = node;
+        }
+        else{
+            Node<T> forward = getNode(index + 1);
+            Node<T> location = forward.previous;
+            node.previous = location == null ? null : location.previous;
+            forward.previous = node;
+        }
+        size++;
     }
 
     @Override
