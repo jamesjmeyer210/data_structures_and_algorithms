@@ -87,4 +87,24 @@ public class LinkedListTest {
         Assertions.assertEquals("1", list.get(1));
         Assertions.assertEquals("2", list.get(0));
     }
+
+    @Test
+    public void RemoveAtIndexForOneItemTest(){
+        list.add("1");
+
+        Assertions.assertEquals("1", list.remove(0));
+        Assertions.assertEquals(0, list.size());
+    }
+
+    @Test
+    public void RemoveAtIndexForManyItemsTest(){
+        list.add("0");
+        list.add("1");
+        list.add("2");
+
+        Assertions.assertEquals("2", list.remove(2));
+        Assertions.assertEquals("0", list.remove(0));
+        Assertions.assertEquals("1", list.remove(0));
+        Assertions.assertEquals(0, list.size());
+    }
 }

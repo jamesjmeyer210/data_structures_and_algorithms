@@ -192,8 +192,24 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public T remove(int i) {
-        return null;
+    public T remove(int index) {
+        if(index < 0 || index > size)
+            throw new IndexOutOfBoundsException();
+
+        T result = null;
+        if(index == size - 1){
+            result = last.data;
+            last = last.previous;
+        }
+        else {
+            Node<T> forward = getNode(index + 1);
+            Node<T> location = forward.previous;
+            Node<T> behind = location.previous;
+            forward.previous = behind;
+            result = location.data;
+        }
+        size--;
+        return result;
     }
 
     @Override
