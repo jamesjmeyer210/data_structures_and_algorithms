@@ -213,13 +213,25 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public int indexOf(Object o) {
-        return 0;
+    public int indexOf(Object data) {
+        return -1;
     }
 
     @Override
-    public int lastIndexOf(Object o) {
-        return 0;
+    public int lastIndexOf(Object data) {
+        if(data == null)
+            throw new NullPointerException();
+        if(isEmpty())
+            return -1;
+
+        int i = size;
+        for(Node<T> iter = last; iter != null; iter = iter.previous){
+            if(iter.data.equals(data))
+                return i;
+            i--;
+            iter = iter.previous;
+        }
+        return -1;
     }
 
     @Override
