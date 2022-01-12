@@ -3,14 +3,15 @@ import java.util.List;
 
 public class FindLeavesOfBinaryTree {
 
+    private List<List<Integer>> leaves = new ArrayList<>();
+
     public List<List<Integer>> findLeaves(TreeNode root) {
-        List<List<Integer>> allLeaves = new ArrayList<>();
         while (root != null){
             List<Integer> leaves = new ArrayList<>();
             root = walk(root, leaves);
-            allLeaves.add(leaves);
+            this.leaves.add(leaves);
         }
-        return allLeaves;
+        return this.leaves;
     }
 
     private TreeNode walk(TreeNode node, List<Integer> leaves){
